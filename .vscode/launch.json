@@ -1,0 +1,45 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'fastly-template-rust-default'",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=fastly-template-rust-default",
+          "--package=fastly-template-rust-default"
+        ],
+        "filter": {
+          "name": "fastly-template-rust-default",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in executable 'fastly-template-rust-default'",
+      "cargo": {
+        "args": [
+          "test",
+          "--no-run",
+          "--bin=fastly-template-rust-default",
+          "--package=fastly-template-rust-default"
+        ],
+        "filter": {
+          "name": "fastly-template-rust-default",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
