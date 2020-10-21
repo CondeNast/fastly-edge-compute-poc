@@ -1,0 +1,9 @@
+[package]
+name = "stef-edge-computer-fastly"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+fastly = "^0.4.0"
+http = "^0.2.1"
+my_app = { path = "../my_app" }
