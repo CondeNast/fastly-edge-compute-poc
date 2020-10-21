@@ -3,11 +3,16 @@ name = "stef-edge-computer"
 version = "0.1.0"
 edition = "2018"
 
-[profile.release]
-debug = true
+[dependencies]
+fastly = "^0.4.0"
+http = "^0.2.1"
+my_app = { path = "./crates/my_app" }
 
 [workspace]
 members = [
     ".",
     "crates/*"
 ]
+
+[profile.release]
+debug = true

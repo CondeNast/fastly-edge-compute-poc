@@ -214,10 +214,6 @@ dependencies = [
 [[package]]
 name = "stef-edge-computer"
 version = "0.1.0"
-
-[[package]]
-name = "stef-edge-computer-fastly"
-version = "0.1.0"
 dependencies = [
  "fastly",
  "http",
