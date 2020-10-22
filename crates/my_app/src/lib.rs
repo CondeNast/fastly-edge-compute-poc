@@ -6,6 +6,7 @@ pub fn render(req: Request<String>) -> Result<Response<&'static str>, http::Erro
             "/" => Ok(Response::builder()
                 .status(StatusCode::OK)
                 .body("Welcome to Stef's Computer On The Edge v4!")?),
+            "/panic" => panic!("You asked for it"),
             _ => Ok(Response::builder()
                 .status(StatusCode::NOT_FOUND)
                 .body("The page you requested could not be found")?),
@@ -25,13 +26,26 @@ mod tests {
         assert_eq!(
             render(
                 Request::builder()
+                    .uri(http::Uri::from_static("/"))
                     .method("GET")
-                    .body(String::from("Hello World!"))
+                    .body(String::from(""))
                     .unwrap()
             )
             .unwrap()
             .body(),
             &"Welcome to Stef's Computer On The Edge v4!"
+        );
+    }
+
+    #[test]
+    #[should_panic]
+    fn it_should_panic_when_you_ask_for_it() {
+        let _res = render(
+            Request::builder()
+                .uri(http::Uri::from_static("/panic"))
+                .method("GET")
+                .body(String::from(""))
+                .unwrap(),
         );
     }
 }
