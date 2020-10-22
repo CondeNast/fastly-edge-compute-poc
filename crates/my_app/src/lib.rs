@@ -38,7 +38,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "You asked for it")]
     fn it_should_panic_when_you_ask_for_it() {
         let _res = render(
             Request::builder()
