@@ -1,4 +1,4 @@
-version = 5
+version = 6
 name = "stef-edge-computer"
 description = "Get to know the Fastly Compute@Edge environment with a basic starter that demonstrates routing, simple synthetic responses and overriding caching rules."
 authors = ["stef.jones+ce-beta@condenast.com"]
