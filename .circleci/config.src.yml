@@ -1,0 +1,103 @@
+version: 2.1
+
+executors:
+  fastly-executor:
+    docker:
+      - image: buildpack-deps
+    working_directory: /workspace
+    environment:
+      RUSTUP_HOME: /usr/local/rustup
+      CARGO_HOME: /usr/local/cargo
+
+commands:
+  set_env_vars:
+    steps:
+      - run:
+          name: Set Environment Variables
+          command: |
+            echo 'export PATH=$CARGO_HOME/bin:$PATH' >> $BASH_ENV
+            echo 'export PATH=$RUSTUP_HOME/bin:$PATH' >> $BASH_ENV
+            source $BASH_ENV
+  install_rust:
+    parameters:
+      version:
+        type: string
+        default: "1.46.0"
+    steps:
+      - run:
+          name: Install Rust
+          command: |
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain <<parameters.version>>
+            rustup toolchain add <<parameters.version>>
+            rustup target add wasm32-wasi --toolchain <<parameters.version>>
+  install_fastly_cli:
+    parameters:
+      version:
+        type: string
+        default: "0.17.0"
+    steps:
+      - run:
+          name: Install Fastly CLI
+          command: |
+            curl -L -o fastly_cli.deb https://github.com/fastly/cli/releases/download/v<<parameters.version>>/fastly_<<parameters.version>>_linux_amd64.deb && \
+            dpkg -i ./fastly_cli.deb && \
+            rm fastly_cli.deb
+  compile:
+    steps:
+      - set_env_vars
+      - install_rust:
+          version: "1.46.0"
+      - install_fastly_cli:
+          version: "0.17.0"
+      - run:
+          name: Compile
+          command: |
+            fastly compute build
+      - persist_to_workspace:
+          name: "Save package to workspace"
+          root: /workspace
+          paths:
+            - "pkg"
+            - fastly.toml
+  deploy:
+    parameters:
+      token:
+        type: string
+      service-id:
+        type: string
+    steps:
+      - install_fastly_cli:
+          version: "0.17.0"
+      - attach_workspace:
+          name: "Restore package from workspace"
+          at: /workspace
+      - run:
+          name: Deploy
+          command: |
+            fastly compute deploy --token <<parameters.token>> --service-id <<parameters.service-id>>
+
+jobs:
+  build:
+    executor: fastly-executor
+    steps:
+      - checkout
+      - compile
+  deploy:
+    executor: fastly-executor
+    steps:
+      - deploy:
+          token: ${FASTLY_API_TOKEN}
+          service-id: ${FASTLY_SERVICE_ID}
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - hold:
+          type: approval
+          requires:
+            - build
+      - deploy:
+          requires:
+            - hold
