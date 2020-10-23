@@ -7,6 +7,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a1fd36ffbb1fb7c834eac128ea8d0e310c5aeb635548f9d58861e1308d46e71c"
 
 [[package]]
+name = "app"
+version = "0.1.0"
+dependencies = [
+ "http",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -59,6 +66,15 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror",
+]
+
+[[package]]
+name = "fastly-edge-compute-poc"
+version = "0.1.0"
+dependencies = [
+ "app",
+ "fastly",
+ "http",
 ]
 
 [[package]]
@@ -128,13 +144,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4fabed175da42fed1fa0746b0ea71f412aa9d35e76e95e59b192c64b9dc2bf8b"
 dependencies = [
  "cfg-if",
-]
-
-[[package]]
-name = "my_app"
-version = "0.1.0"
-dependencies = [
- "http",
 ]
 
 [[package]]
@@ -209,15 +218,6 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
-]
-
-[[package]]
-name = "stef-edge-computer"
-version = "0.1.0"
-dependencies = [
- "fastly",
- "http",
- "my_app",
 ]
 
 [[package]]

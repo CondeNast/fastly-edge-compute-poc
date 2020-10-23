@@ -1,6 +1,5 @@
-version = 12
-name = "stef-edge-computer"
-description = "Get to know the Fastly Compute@Edge environment with a basic starter that demonstrates routing, simple synthetic responses and overriding caching rules."
-authors = ["stef.jones+ce-beta@condenast.com"]
+manifest_version = "0.1.0"
+name = "fastly-edge-compute-poc"
+description = "Condé Nast Fastly Compute@Edge Proof of Concept"
+authors = ["<sam.greenhalgh@condenast.com>"]
 language = "rust"
-service_id = "54xcCkCPUIvqFr9W3Rg7D0"
