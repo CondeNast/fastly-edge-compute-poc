@@ -1,19 +1,19 @@
-use http::{Method, Request, Response, StatusCode};
+use http::{Error, Method, Request, Response, StatusCode};
 
-pub fn render(req: Request<String>) -> Result<Response<&'static str>, http::Error> {
+pub fn render(req: Request<String>) -> Result<Response<String>, Error> {
     match req.method() {
         &Method::GET => match req.uri().path() {
-            "/" => Ok(Response::builder()
+            "/" => Response::builder()
                 .status(StatusCode::OK)
-                .body("Hello")?),
+                .body(String::from("Hello")),
             "/panic" => panic!("You asked for it"),
-            _ => Ok(Response::builder()
+            _ => Response::builder()
                 .status(StatusCode::NOT_FOUND)
-                .body("The page you requested could not be found")?),
+                .body(String::from("The page you requested could not be found")),
         },
-        _ => Ok(Response::builder()
+        _ => Response::builder()
             .status(StatusCode::METHOD_NOT_ALLOWED)
-            .body("This method is not allowed")?),
+            .body(String::from("This method is not allowed")),
     }
 }
 
