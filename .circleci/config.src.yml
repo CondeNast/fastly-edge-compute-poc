@@ -98,6 +98,10 @@ workflows:
           type: approval
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - main
       - deploy:
           requires:
             - hold
