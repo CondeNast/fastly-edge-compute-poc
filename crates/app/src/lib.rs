@@ -5,7 +5,7 @@ pub fn render(req: Request<String>) -> Result<Response<String>, Error> {
         &Method::GET => match req.uri().path() {
             "/" => Response::builder()
                 .status(StatusCode::OK)
-                .body(String::from("Welcome to Stef's Computer On The Edge v4!")),
+                .body(String::from("Hello")),
             "/panic" => panic!("You asked for it"),
             _ => Response::builder()
                 .status(StatusCode::NOT_FOUND)
