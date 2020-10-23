@@ -22,18 +22,17 @@ Follow the https://developer.fastly.com/learning/compute/ guide to start working
 *Note:*
 If you're using Visual Studio Code and Docker you can use the provided [dev container](https://code.visualstudio.com/docs/remote/containers) to avoid installing dependencies locally. Use the `Remote-Containers: Open Workspace in Container` command.
 
+### Test
+This will compile the Rust code to an x86_64 target which means it can run natively on your computer.
+```
+cargo test --all
+```
+
 ### Build
 This will compile the Rust code to a WASM+WASI target which means it cannot run natively on your computer.
 ```
 fastly compute build
 fastly compute validate -p pkg/stef-edge-computer.tar.gz
-fastly compute deploy
-```
-
-### Test
-This will compile the Rust code to an x86_64 target which means it can run natively on your computer.
-```
-cargo test --all
 ```
 
 ### Deploy
