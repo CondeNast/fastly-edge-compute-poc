@@ -32,7 +32,7 @@ cargo test --all
 This will compile the Rust code to a WASM+WASI target which means it cannot run natively on your computer.
 ```
 fastly compute build
-fastly compute validate -p pkg/stef-edge-computer.tar.gz
+fastly compute validate -p pkg/fastly-edge-compute-poc.tar.gz
 ```
 
 ### Deploy
