@@ -33,7 +33,7 @@ mod tests {
             )
             .unwrap()
             .body(),
-            &"Welcome to Stef's Computer On The Edge v4!"
+            &"Hello"
         );
     }
 
